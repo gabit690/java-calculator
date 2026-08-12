@@ -64,6 +64,20 @@ class BasicCalculatorTest {
 		void shouldMultiplyTwoPositiveNumbers() {
 			assertEquals(8, myCalculator.multiplication(2, 4));
 		}
+		
+		@Test
+		void shouldMultiplyTwoNegativeNumbersReturnPositive() {
+			assertTrue(myCalculator.multiplication(-2, -4) > 0);
+		}
+	}
+	
+	@Nested
+	class divide {
+		
+		@Test
+		void shouldDivideTwoNumbers() {
+			assertEquals(3, myCalculator.division(6, 2));
+		}
 	}
 	
 }

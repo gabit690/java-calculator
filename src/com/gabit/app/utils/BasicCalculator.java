@@ -13,4 +13,8 @@ public class BasicCalculator {
 	public int multiplication(int multiplicand, int multiplicator) {
 		return multiplicand * multiplicator;
 	}
+	
+	public int division(int dividend, int divisor) {
+		return dividend / divisor;
+	}
 }
