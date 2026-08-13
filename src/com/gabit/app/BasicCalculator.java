@@ -4,21 +4,29 @@ public class BasicCalculator {
 	
 	public int addition(int adding1, int adding2) {
 		long result = (long)adding1 + adding2;
-		if (result > Integer.MAX_VALUE || result < Integer.MIN_VALUE) {
-			throw new OverflowException("The result of (" + adding1 + ") + (" + adding2 + ") overflows");
-		}
+		checkOverflow(result);
 		return (int)adding1 + adding2;
 	}
 	
-	public int substraction(int minuend, int subtracting) {
-		return minuend - subtracting;
+	public int subtraction(int minuend, int subtracting) {
+		long result = (long)minuend - subtracting;
+		checkOverflow(result);
+		return (int)minuend - subtracting;
 	}
 	
 	public int multiplication(int multiplicand, int multiplicator) {
-		return multiplicand * multiplicator;
+		long result = (long)multiplicand * multiplicator;
+		checkOverflow(result);
+		return (int)multiplicand * multiplicator;
 	}
 	
 	public int division(int dividend, int divisor) {
 		return dividend / divisor;
+	}
+	
+	private void checkOverflow(long result) {
+		if (result > Integer.MAX_VALUE || result < Integer.MIN_VALUE) {
+			throw new OverflowException("Overflow: Result " + result + " exceed int range.");
+		}
 	}
 }

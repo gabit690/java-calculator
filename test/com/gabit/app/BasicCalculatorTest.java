@@ -47,40 +47,81 @@ class BasicCalculatorTest {
 	}
 	
 	@Nested
-	class substractTests {
+	class substractionTests {
 		
 		@Test
-		void shouldSubstractTwoPositiveNumbers() {
-			assertEquals(4, myCalculator.substraction(6, 2));
+		void subtract_twoPositiveNumbers_returnsDifference() {
+			assertEquals(4, myCalculator.subtraction(6, 2));
 		}
 		
 		@Test
-		void shouldSubstractTwoNegativeNumbers() {
-			assertEquals(3, myCalculator.substraction(-1, -4));
+		void subtract_resultingInNegative_returnsNegative() {
+			assertTrue(myCalculator.subtraction(3, 5) < 0);
 		}
 		
 		@Test
-		void shouldSubstractPositiveAndNegativeNumbers() {
-			assertEquals(-7, myCalculator.substraction(-2, 5));
+		void subtract_numberFromItself_returnsZero() {
+			assertEquals(0, myCalculator.subtraction(4, 4));
 		}
 		
 		@Test
-		void shouldSubstractZero() {
-			assertEquals(8, myCalculator.substraction(8, 0));
+		void subtract_zeroFromNumber_returnsSameNumber() {
+			assertEquals(5, myCalculator.subtraction(5, 0));
 		}
+		
+		@Test
+		void subtract_minValueMinus1_throwsOverflowException() {
+			assertThrows(OverflowException.class, () -> myCalculator.subtraction(Integer.MIN_VALUE, 1));
+		}
+		
+		@Test
+		void subtract_minusOneFromMaxValue() {
+			assertThrows(OverflowException.class, () -> myCalculator.subtraction(Integer.MAX_VALUE, -1));	
+		}
+		
 	}
 	
 	@Nested
-	class multiplyTests {
+	class multiplicationTests {
 		
 		@Test
-		void shouldMultiplyTwoPositiveNumbers() {
+		void multiply_twoPositiveNumbers_returnsProduct() {
 			assertEquals(8, myCalculator.multiplication(2, 4));
 		}
 		
 		@Test
-		void shouldMultiplyTwoNegativeNumbersReturnPositive() {
+		void multiply_positiveAndNegativeNumbers_returnsNegativeProduct() {
+			assertTrue(myCalculator.multiplication(2, -4) < 0);
+		}
+		
+		@Test
+		void multiply_twoNegativeNumbers_returnsPositiveProduct() {
 			assertTrue(myCalculator.multiplication(-2, -4) > 0);
+		}
+		
+		@Test
+		void multiply_numberByZero_returnsZero() {
+			assertEquals(0, myCalculator.multiplication(10, 0));
+		}
+		
+		@Test
+		void multiply_numberByOne_returnsSameNumber() {
+			assertEquals(3, myCalculator.multiplication(3, 1));
+		}
+		
+		@Test
+		void multiply_maxValueByNegativeTwo_overflows() {
+			assertThrows(OverflowException.class, () -> myCalculator.multiplication(Integer.MAX_VALUE, -2));
+		}
+		
+		@Test
+		void multiply_minValueByNegativeTwo_overflows() {
+			assertThrows(OverflowException.class, () -> myCalculator.multiplication(Integer.MIN_VALUE, -2));
+		}
+		
+		@Test
+		void multiply_minValueByNegativeOne_overflows() {
+			assertThrows(OverflowException.class, () -> myCalculator.multiplication(Integer.MIN_VALUE, -1));
 		}
 	}
 	
