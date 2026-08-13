@@ -1,9 +1,12 @@
-package com.gabit.app.utils;
+package com.gabit.app;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import com.gabit.app.BasicCalculator;
 
 class BasicCalculatorTest {
 
@@ -13,23 +16,33 @@ class BasicCalculatorTest {
 	class additionTests {
 		
 		@Test
-		void shouldAddTwoPositiveNumbers() {
+		void add_twoPostiveNumbers_returnsSum() {
 			assertEquals(3, myCalculator.addition(1, 2));
 		}
 		
 		@Test
-		void shouldAddTwoNegativeNumbers() {
+		void add_twoNegativeNumbers_returnsSum() {
 			assertEquals(-5, myCalculator.addition(-1, -4));
 		}
 		
 		@Test
-		void shouldAddPositiveAndNegativeNumbers() {
+		void add_positiveAndNegativeNumbers_returnsSum() {
 			assertEquals(3, myCalculator.addition(-2, 5));
 		}
 		
 		@Test
-		void shouldAddZero() {
+		void add_zeroToNumber_returnsSameNumber() {
 			assertEquals(8, myCalculator.addition(8, 0));
+		}
+		
+		@Test
+		void add_maxValuePlusOne_throwsOverflowException() {
+			assertThrows(OverflowException.class, () -> myCalculator.addition(Integer.MAX_VALUE, 1));	
+		}
+		
+		@Test
+		void add_minValuePlusMinusOne_throwsOverflowException() {
+			assertThrows(OverflowException.class, () -> myCalculator.addition(Integer.MIN_VALUE, -1));	
 		}
 	}
 	
