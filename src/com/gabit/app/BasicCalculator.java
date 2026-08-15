@@ -14,13 +14,15 @@ public class BasicCalculator {
 		return (int)minuend - subtracting;
 	}
 	
-	public int multiplication(int multiplicand, int multiplicator) {
+	public int multiply(int multiplicand, int multiplicator) {
 		long result = (long)multiplicand * multiplicator;
 		checkOverflow(result);
 		return (int)multiplicand * multiplicator;
 	}
 	
-	public int division(int dividend, int divisor) {
+	public int divide(int dividend, int divisor) {
+		long result = (long)dividend / divisor;
+		checkOverflow(result);
 		return dividend / divisor;
 	}
 	

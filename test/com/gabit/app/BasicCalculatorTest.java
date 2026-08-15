@@ -1,12 +1,9 @@
 package com.gabit.app;
 
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import com.gabit.app.BasicCalculator;
 
 class BasicCalculatorTest {
 
@@ -36,12 +33,12 @@ class BasicCalculatorTest {
 		}
 		
 		@Test
-		void add_maxValuePlusOne_throwsOverflowException() {
+		void add_maxValuePlusOne_overflows() {
 			assertThrows(OverflowException.class, () -> myCalculator.addition(Integer.MAX_VALUE, 1));	
 		}
 		
 		@Test
-		void add_minValuePlusMinusOne_throwsOverflowException() {
+		void add_minValuePlusMinusOne_overflows() {
 			assertThrows(OverflowException.class, () -> myCalculator.addition(Integer.MIN_VALUE, -1));	
 		}
 	}
@@ -70,12 +67,12 @@ class BasicCalculatorTest {
 		}
 		
 		@Test
-		void subtract_minValueMinus1_throwsOverflowException() {
+		void subtract_minValueMinusOne_overflows() {
 			assertThrows(OverflowException.class, () -> myCalculator.subtraction(Integer.MIN_VALUE, 1));
 		}
 		
 		@Test
-		void subtract_minusOneFromMaxValue() {
+		void subtract_minusOneFromMaxValue_overflows() {
 			assertThrows(OverflowException.class, () -> myCalculator.subtraction(Integer.MAX_VALUE, -1));	
 		}
 		
@@ -86,51 +83,81 @@ class BasicCalculatorTest {
 		
 		@Test
 		void multiply_twoPositiveNumbers_returnsProduct() {
-			assertEquals(8, myCalculator.multiplication(2, 4));
+			assertEquals(8, myCalculator.multiply(2, 4));
 		}
 		
 		@Test
 		void multiply_positiveAndNegativeNumbers_returnsNegativeProduct() {
-			assertTrue(myCalculator.multiplication(2, -4) < 0);
+			assertTrue(myCalculator.multiply(2, -4) < 0);
 		}
 		
 		@Test
 		void multiply_twoNegativeNumbers_returnsPositiveProduct() {
-			assertTrue(myCalculator.multiplication(-2, -4) > 0);
+			assertTrue(myCalculator.multiply(-2, -4) > 0);
 		}
 		
 		@Test
 		void multiply_numberByZero_returnsZero() {
-			assertEquals(0, myCalculator.multiplication(10, 0));
+			assertEquals(0, myCalculator.multiply(10, 0));
 		}
 		
 		@Test
 		void multiply_numberByOne_returnsSameNumber() {
-			assertEquals(3, myCalculator.multiplication(3, 1));
+			assertEquals(3, myCalculator.multiply(3, 1));
 		}
 		
 		@Test
 		void multiply_maxValueByNegativeTwo_overflows() {
-			assertThrows(OverflowException.class, () -> myCalculator.multiplication(Integer.MAX_VALUE, -2));
+			assertThrows(OverflowException.class, () -> myCalculator.multiply(Integer.MAX_VALUE, -2));
 		}
 		
 		@Test
 		void multiply_minValueByNegativeTwo_overflows() {
-			assertThrows(OverflowException.class, () -> myCalculator.multiplication(Integer.MIN_VALUE, -2));
+			assertThrows(OverflowException.class, () -> myCalculator.multiply(Integer.MIN_VALUE, -2));
 		}
 		
 		@Test
 		void multiply_minValueByNegativeOne_overflows() {
-			assertThrows(OverflowException.class, () -> myCalculator.multiplication(Integer.MIN_VALUE, -1));
+			assertThrows(OverflowException.class, () -> myCalculator.multiply(Integer.MIN_VALUE, -1));
 		}
 	}
 	
 	@Nested
-	class divide {
+	class divisionTests {
 		
 		@Test
-		void shouldDivideTwoNumbers() {
-			assertEquals(3, myCalculator.division(6, 2));
+		void divide_twoPositiveNumbers_returnsPositiveQuotient() {
+			assertTrue(myCalculator.divide(6, 2) > 0);
+		}
+		
+		@Test
+		void divide_positiveByNegative_returnsNegativeQuotient() {
+			assertTrue(myCalculator.divide(10, -2) < 0);
+		}
+		
+		@Test
+		void divide_twoNegativeNumbers_returnsPositiveQuotient() {
+			assertTrue(myCalculator.divide(-4, -1) > 0);
+		}
+		
+		@Test
+		void divide_zeroByNumber_returnsZero() {
+			assertEquals(0, myCalculator.divide(0, 4));
+		}
+		
+		@Test
+		void divide_nonExactValues_truncatesResult() {
+			assertEquals(2, myCalculator.divide(5, 2));
+		}
+		
+		@Test
+		void divide_byZero_throwsArithmeticException() {
+			assertThrows(ArithmeticException.class, () -> myCalculator.divide(10, 0));
+		}
+		
+		@Test
+		void divide_minValueByNegativeOne_overlflows() {
+			assertThrows(OverflowException.class, () -> myCalculator.divide(Integer.MIN_VALUE, -1));
 		}
 	}
 	
